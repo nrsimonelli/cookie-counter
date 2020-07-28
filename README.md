@@ -14,10 +14,10 @@ Start this project with `npm start`
 
 In the second round of user testing, we found that users like to see their name on the screen.
 
-- [ ] The username should display on the screen.
-- [ ] When a user clicks the `Edit Username` button, the username display should turn into an input, and the button should turn into a `Save` button.
-- [ ] When the user selects the save button, it should turn back into an `Edit Username` button, and the input should turn back into a display of the new name.
-- [ ] When the user refreshes the page, they should continue to see their name.
+- [x] The username should display on the screen.
+- [x] When a user clicks the `Edit Username` button, the username display should turn into an input, and the button should turn into a `Save` button.
+- [x] When the user selects the save button, it should turn back into an `Edit Username` button, and the input should turn back into a display of the new name.
+- [x] When the user refreshes the page, they should continue to see their name.
 
 To see all of the cookies for your application. Open the dev tools, then click `Application`. Scroll down to `Storage`, and `Cookies` should be one of the options you can view.
 
