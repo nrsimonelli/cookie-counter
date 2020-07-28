@@ -7,12 +7,18 @@ const getCookie = (cookieName) => {
   // Return everything after the equal sign, or an empty string if the cookie name not found
   return decodeURIComponent(!!cookieString ? cookieString.toString().replace(/^[^=]+./,'') : '');
 }
+const getUserCookie = (username) => {
+  const cookieString = RegExp(''+username+'[^;]+').exec(document.cookie);
+  return decodeURIComponent(!!cookieString ? cookieString.toString().replace(/^[^=]+./,'') : '');
+
+}
 
 class App extends Component {
   state = {
     clickCount: getCookie('count') || 0,
-    username: '',
+    cookieUser: getUserCookie('user') || null, 
     usernameIsEditable: false,
+    tempName:'',
   }
 
   handleClick = () => {
@@ -21,10 +27,12 @@ class App extends Component {
     // This is making a cookie called count with the newCount amount
     // It will replace anything called count
     document.cookie = `count=${newCount}`;
+
     
     this.setState({
       clickCount: newCount,
     });
+
   }
 
   editUsername = () => {
@@ -34,15 +42,21 @@ class App extends Component {
   }
 
   saveUsername = () => {
+    const newName = this.state.cookieUser;
+    // This is making a cookie called count with the newCount amount
+    // It will replace anything called count
+    document.cookie = `user=${newName}`;
     this.setState({
+      cookieUser: newName,
       usernameIsEditable: false,
     });
   }
   inputOnChange = (event) => {
+
     this.setState({
-      username: event.target.value
+      cookieUser: event.target.value
     })
-    console.log('username: ', this.state.username);
+    console.log('username: ', this.state.cookieUser);
   }
 
   render() {
@@ -51,7 +65,7 @@ class App extends Component {
         <center>
           <h1>Click the Cookie!!</h1>
           <p>
-            Username: {this.state.username}
+            Username: 
             {/* Username should go here */}
             {/* The next block of code is conditional rendering.
             Look at the documentation https://reactjs.org/docs/conditional-rendering.html
@@ -74,8 +88,8 @@ class App extends Component {
 
             */}
             {this.state.usernameIsEditable ?
-              <><input className='usernameIn' placeholder='name here' onChange={this.inputOnChange} value={this.state.username}></input><button onClick={this.saveUsername}>Save Username</button></> :
-              <button onClick={this.editUsername}>Edit Username</button>
+              <><input className='usernameIn' placeholder='name here' onChange={this.inputOnChange} value={this.state.cookieUser}></input><button onClick={this.saveUsername}>Save Username</button></> :
+              <>{this.state.cookieUser}<button onClick={this.editUsername}>Edit Username</button></>
             }
           </p>
           <p>{this.state.clickCount}</p>
